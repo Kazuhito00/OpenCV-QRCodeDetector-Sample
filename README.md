@@ -1,0 +1,1 @@
+# OpenCV-QRCodeDetector-Sample
