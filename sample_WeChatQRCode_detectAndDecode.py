@@ -33,7 +33,12 @@ def main():
     cap.set(cv.CAP_PROP_FRAME_HEIGHT, cap_height)
 
     # Detector準備 #############################################################
-    qrcode_detector = cv.wechat_qrcode_WeChatQRCode()
+    qrcode_detector = cv.wechat_qrcode_WeChatQRCode(
+        "model/detect.prototxt",
+        "model/detect.caffemodel",
+        "model/sr.prototxt",
+        "model/sr.caffemodel",
+    )
 
     elapsed_time = 0
 
@@ -72,13 +77,28 @@ def draw_tags(
     elapsed_time,
 ):
     if len(qrcode_result[0]) > 0:
-        qrcode_text = qrcode_result[0][0]
-        qrcode_corners = qrcode_result[1]
-        print(qrcode_corners)
+        text = qrcode_result[0][0]
+        corner = qrcode_result[1][0]
+
+        corner_01 = (int(corner[0][0]), int(corner[0][1]))
+        corner_02 = (int(corner[1][0]), int(corner[1][1]))
+        corner_03 = (int(corner[2][0]), int(corner[2][1]))
+        corner_04 = (int(corner[3][0]), int(corner[3][1]))
+
+        # 各辺
+        cv.line(image, (corner_01[0], corner_01[1]),
+                (corner_02[0], corner_02[1]), (255, 0, 0), 2)
+        cv.line(image, (corner_02[0], corner_02[1]),
+                (corner_03[0], corner_03[1]), (255, 0, 0), 2)
+        cv.line(image, (corner_03[0], corner_03[1]),
+                (corner_04[0], corner_04[1]), (0, 255, 0), 2)
+        cv.line(image, (corner_04[0], corner_04[1]),
+                (corner_01[0], corner_01[1]), (0, 255, 0), 2)
+
 
         # テキスト
-        cv.putText(image, str(qrcode_text), (10, 55), cv.FONT_HERSHEY_SIMPLEX,
-                   0.75, (0, 255, 0), 2, cv.LINE_AA)
+        cv.putText(image, str(text), (10, 55), cv.FONT_HERSHEY_SIMPLEX, 0.75,
+                   (0, 255, 0), 2, cv.LINE_AA)
 
     # 処理時間
     cv.putText(image,
