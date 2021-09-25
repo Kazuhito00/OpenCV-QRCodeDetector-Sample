@@ -6,7 +6,11 @@ OpenCVでのQRコード検出サンプルプログラムです。<br>
 * QRCodeDetector：detectAndDecode
 * QRCodeDetector：detectAndDecodeMulti
 * QRCodeDetector：detectAndDecodeCurved
-* WeChatQRCode：detectAndDecode
+* WeChatQRCode：detectAndDecode<br>検出モデルと超解像モデルは[[WeChatCV/opencv_3rdparty](https://github.com/WeChatCV/opencv_3rdparty)]のモデルを使用しています
+    * "model/detect.prototxt"
+    * "model/detect.caffemodel"
+    * "model/sr.prototxt"
+    * "model/sr.caffemodel"
 
 # Requirement 
 * opencv-python 4.5.3.56 or later
