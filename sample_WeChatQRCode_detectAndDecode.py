@@ -65,7 +65,7 @@ def main():
             break
 
         # 画面反映 #############################################################
-        cv.imshow('AprilTag Detect Demo', debug_image)
+        cv.imshow('QR Code Detector Demo', debug_image)
 
     cap.release()
     cv.destroyAllWindows()
